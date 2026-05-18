@@ -1,0 +1,133 @@
+@config "../tailwind.config.js";
+@import "tailwindcss";
+
+/* Reveal animation (fade + slide up) */
+.reveal {
+	opacity: 0;
+	transform: translateY(18px) scale(0.995);
+	transition: opacity .6s cubic-bezier(.2,.9,.2,1), transform .6s cubic-bezier(.2,.9,.2,1);
+	will-change: transform, opacity;
+}
+.reveal.reveal--visible {
+	opacity: 1;
+	transform: none;
+}
+
+/* Mobile dropdown enter/leave */
+.fade-down-enter-active,
+.fade-down-leave-active {
+	transition: opacity .25s ease, transform .25s ease;
+}
+.fade-down-enter-from,
+.fade-down-leave-to {
+	opacity: 0;
+	transform: translateY(-8px);
+}
+.fade-down-enter-to,
+.fade-down-leave-from {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Card hover polish */
+.card-hover {
+	transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
+}
+.card-hover:hover {
+	transform: translateY(-6px) scale(1.01);
+	box-shadow: 0 10px 30px rgba(2,6,23,0.08);
+}
+
+/* Subtle floating animation for decorative elements */
+@keyframes floaty { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+.floaty { animation: floaty 6s ease-in-out infinite; }
+
+/* Touch-friendly spacing */
+@media (max-width: 767px) {
+	.touch-stack { gap: 14px; }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+	.reveal {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Smooth scroll behavior */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Focus visible for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+	outline: 2px solid #2563eb;
+	outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+	a {
+		text-decoration: underline;
+	}
+}
+
+/* Improve text rendering for dark mode */
+.dark {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Link focus indicator */
+a:focus {
+	outline: none;
+}
+
+a:focus-visible {
+	border-radius: 2px;
+}
+
+/* Touch-friendly spacing */
+@media (max-width: 767px) {
+	.touch-stack { gap: 10px; }
+	button, a {
+		min-height: 44px;
+		min-width: 44px;
+	}
+}
+
+/* Utility class for screen reader only text */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.sr-only:focus:not(:focus-visible),
+.sr-only:focus-visible {
+	position: static;
+	width: auto;
+	height: auto;
+	padding: inherit;
+	margin: inherit;
+	overflow: visible;
+	clip: auto;
+	white-space: normal;
+}
+@media (prefers-reduced-motion: reduce) {
+	.reveal, .floaty, .card-hover { transition: none !important; animation: none !important; transform: none !important; }
+}
